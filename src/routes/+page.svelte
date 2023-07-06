@@ -25,16 +25,6 @@
     const options = ['A', 'B', 'C', 'D'];
 </script>
 
-<div class='grid'>
-  <div class="button-grid">
-    {#each options as option (option)}
-      <button on:click={() => selectOption(option)} class:selected={selection === option}>{option}</button>
-    {/each}
-  </div>
-
-  <button class="vote-button" on:click={vote}>Vote</button>
-</div>
-
 <style>
   .grid {
     display: flex;
@@ -61,7 +51,7 @@
     border: none;
     text-align: center;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 4px;
   }
 
   .button-grid button.selected {
@@ -74,6 +64,20 @@
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 4px;
   }
 </style>
+
+
+
+
+<div class='grid'>
+  <div class="button-grid">
+    {#each options as option (option)}
+      <button on:click={() => selectOption(option)} class:selected={selection === option}>{option}</button>
+    {/each}
+  </div>
+
+  <button class="vote-button" on:click={vote}>Hlasovat</button>
+</div>
+
