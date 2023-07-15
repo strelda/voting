@@ -1,29 +1,46 @@
 <script lang='ts'>
-    let selection = "";
-    function selectOption(option: string): void {
+  let selection = "";
+
+  function selectOption(option: string): void {
     selection = option;
   }
 
-    function vote() {
-      fetch('http://localhost:5000/vote', {
-        method: 'POST',
-        body: JSON.stringify({ option: selection }),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => console.log(data))
-      .catch(error => {
-        console.log('There was a problem with the fetch operation: ', error.message);
-      });
-    }
-  
-    const options = ['A', 'B', 'C', 'D'];
+  function vote() {
+    fetch('http://localhost:5000/vote', {
+      method: 'POST',
+      body: JSON.stringify({ option: selection }),
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      // Redirect to the "/voted" page
+      window.location.href = '/voted';
+    })
+    .catch(error => {
+      console.log('There was a problem with the fetch operation: ', error.message);
+    });
+  }
+
+  const options = ['A', 'B', 'C', 'D'];
 </script>
+
+
+<div class='grid'>
+  <div class="button-grid">
+    {#each options as option (option)}
+      <button on:click={() => selectOption(option)} class:selected={selection === option}>{option}</button>
+    {/each}
+  </div>
+
+  <button class="vote-button" on:click={vote}>Hlasovat</button>
+</div>
+
 
 <style>
   .grid {
@@ -66,18 +83,6 @@
     cursor: pointer;
     border-radius: 4px;
   }
+  
 </style>
-
-
-
-
-<div class='grid'>
-  <div class="button-grid">
-    {#each options as option (option)}
-      <button on:click={() => selectOption(option)} class:selected={selection === option}>{option}</button>
-    {/each}
-  </div>
-
-  <button class="vote-button" on:click={vote}>Hlasovat</button>
-</div>
 
