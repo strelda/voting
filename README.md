@@ -15,6 +15,8 @@ cd frontend
 npm install
 npm run dev
 ```
+Now it runs on your localhost, which should accessible from the same network to all devices.
+
 
 # How does it work
 Python script in the backend counts submitted votes. The results are then displayed in the /results page. 
